@@ -22,6 +22,7 @@ time, mark, audio, video {
 	font-size: 100%;
 	font: inherit;
 	vertical-align: baseline;
+	text-decoration: none;
 }
 /* HTML5 display-role reset for older browsers */
 article, aside, details, figcaption, figure,
@@ -50,11 +51,16 @@ table {
 
 
 /* Body */
+
+html {
+  	scroll-behavior: smooth;
+}
+
 body {
 	max-width: 1440px;
 	font-family: 'Work Sans' ;
 	font-size: 14px;
-	background-color: #FFFEF8	;
+	background-color: #FFFEF8;
 }
 
 h1{
@@ -101,16 +107,21 @@ nav ul {
 	align-items: center;
 	list-style-type: none;
 	gap: 45px;
-
 }
-nav li {
+
+.header_navLink {
 	padding: 0 10px;
 	font-size: 16px;
+	color: #3D3D3D;
+	text-decoration: none;
 }
 
-li:hover {
+.header_navLink:hover,
+.header_navLink:focus,
+.header_navLink:active {
 	cursor: pointer;
 	font-weight: 700;
+	color: black;
 }
 
 .instagramLogo {
@@ -173,7 +184,7 @@ li:hover {
 	margin-right: 245px;
 }
 
-#portfolio h2 {
+#portfolioTitle {
 	text-align: center;
 }
 
@@ -257,7 +268,7 @@ li:hover {
 	box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
 }
 
-input[type="submit"]{
+.inputButton {
 	cursor: pointer;
 	font-family: 'Syne';
 	font-weight: 700;
@@ -275,7 +286,7 @@ input[type="submit"]{
 	border: none;
 }
 
-input[type="submit"]:hover {
+.inputButton:hover {
 	background-color: #0E2F28;
 }
 
@@ -297,3 +308,63 @@ footer li {
 	font-size: 14px;
 }
 
+
+/* *** Log In Page *** */
+
+.logIn {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	width: 50%;
+	margin: auto;
+}
+
+.logIn_title {
+	margin-bottom: 37px;
+	margin-top: 150px;
+}
+
+.logIn_form {
+	display: flex;
+	flex-direction: column;
+}
+
+.logIn_formLabel {
+	margin-bottom: 7px;
+}
+
+.logIn_formInput {
+	margin-bottom: 30px;
+}
+
+.logIn_button {
+	cursor: pointer;
+	font-family: 'Syne';
+	font-weight: 700;
+	font-size: 14px;
+	color: white;
+	background-color: #1D6154;
+	margin-top: 7px;
+	margin-left: 100px;
+	margin-right: 100px;
+	margin-bottom: 28px;
+	width: 180px;
+	height: 36px;
+	text-align: center;
+	border-radius: 60px ;
+	border: none;
+}
+
+.logIn_button:hover {
+	background-color: #0E2F28;
+}
+
+.forgotPassword {
+	text-align: center;
+	font-family: 'Work Sans';
+	font-size: 14px;
+	font-weight: 500;
+	color: #3D3D3D;
+	line-height: 17px;
+	margin-bottom: 355px;
+}
