@@ -220,6 +220,10 @@ nav ul {
 	grid-row-gap: 20px;
 }
 
+.galleryFigure {
+	background-color: red;
+}
+
 .gallery img {
 	width: 100%;
 }
