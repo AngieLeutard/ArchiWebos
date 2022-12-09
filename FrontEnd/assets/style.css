@@ -378,3 +378,13 @@ footer li {
 	line-height: 17px;
 	margin-bottom: 355px;
 }
+
+/* filter buttons */
+
+.displayNone {
+	display: none;
+}
+
+.displayBlock {
+	display: block;
+}

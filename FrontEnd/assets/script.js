@@ -25,9 +25,64 @@ fetch("http://localhost:5678/api/works")
 
             galleryFigure.appendChild(figureImage);
             galleryFigure.appendChild(figureText);
+
+            galleryWorks[i] = galleryFigure;
             gallery.appendChild(galleryFigure);
         }
-    });
+
+         // Filter
+
+            // button
+
+        let filterTousButton = document.querySelector(".filterTous");
+        let filterObjetsButton = document.querySelector(".filterObjets");
+        let filterAppartementsButton = document.querySelector(".filterAppartements");
+        let filterHotelButton = document.querySelector(".filterHotel");
+
+
+        // images
+
+        let objets = galleryWorks[0, 4];
+        let appartements = galleryWorks[1];
+        let hotel = galleryWorks[2, 9, 10];
+
+            // add categories 
+
+        filterObjetsButton.addEventListener('click', () => {
+            console.log("hello");
+            appartements.classList.add("displayNone");
+            hotel.classList.add("displayNone");
+            objets.classList.add("displayBlock");
+        });
+
+        filterAppartementsButton.addEventListener('click', () => {
+            console.log("hello");
+            objets.classList.add("displayNone");
+            hotel.classList.add("displayNone");
+            appartements.classList.add("displayBlock");
+
+        });
+
+        filterHotelButton.addEventListener('click', () => {
+            console.log("hello");
+            objets.classList.add("displayNone");
+            appartements.classList.add("displayNone");
+            hotel.classList.add("displayBlock");
+
+        })
+
+        filterTousButton.addEventListener('click', () => {
+            console.log("hello");
+            objets.classList.remove("displayNone");
+            appartements.classList.remove("displayNone");
+            hotel.classList.remove("displayNone");
+        })
+
+
+
+        });
+
+   
 
 
 
@@ -42,7 +97,7 @@ fetch("http://localhost:5678/api/works")
 
 
 
-    
+
 
 
   // console.log(value);
