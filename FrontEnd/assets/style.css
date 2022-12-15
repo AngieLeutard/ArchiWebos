@@ -220,8 +220,11 @@ nav ul {
 	grid-row-gap: 20px;
 }
 
-.galleryFigure {
-	background-color: red;
+.galleryFigcaption {
+	font-family: 'work sans';
+	font-size: 13px;
+	padding-top: 5px;
+	color: #3D3D3D;
 }
 
 .gallery img {
