@@ -18,13 +18,11 @@ form.addEventListener('submit', (e) => {
     }).then(function(res) {
         console.log(res)
         if (res.ok) {
-            console.log("Utilisateur connecté!");
             document.location.href="./index.html"; 
             } else {
-            console.log("Alerte, intrus!");
             let errorText = document.querySelector(".errorMessage");
             errorText.innerHTML = "Utilisateur inconnu !"
             } 
             return res;
-    })     
+    })    
 })
