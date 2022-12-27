@@ -346,7 +346,7 @@ footer li {
 	margin-bottom: 7px;
 }
 
-.logIn_formInput {
+.formInput_email {
 	margin-bottom: 30px;
 }
 
@@ -380,6 +380,13 @@ footer li {
 	color: #3D3D3D;
 	line-height: 17px;
 	margin-bottom: 355px;
+}
+
+.errorMessage {
+	margin-top: 10px;
+	margin-bottom: 20px;
+	color: red;
+	font-size: 13px;
 }
 
 /* filter buttons */
