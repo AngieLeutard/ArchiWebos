@@ -15,14 +15,21 @@ form.addEventListener('submit', (e) => {
         'Content-Type': 'application/json;charset=utf-8'
         },
         body: JSON.stringify(data)
-    }).then(function(res) {
-        console.log(res)
+    }).then(res => {
         if (res.ok) {
-            document.location.href="./index.html"; 
-            } else {
+            return res.json()
+        } else if (res.status === 404) {
             let errorText = document.querySelector(".errorMessage");
-            errorText.innerHTML = "Utilisateur inconnu !"
-            } 
-            return res;
+            errorText.innerHTML = "Utilisateur inconnu !";
+        } else if (res.status === 401) {
+            let errorText = document.querySelector(".errorMessage");
+            errorText.innerHTML = "Non autorisé !";
+        }
+    }).then(res => {
+        console.log(res)
+        if (res.token) {
+            localStorage.setItem("token", res.token);
+            document.location.href="./homepage_edit.html"; 
+        }
     })    
 })
