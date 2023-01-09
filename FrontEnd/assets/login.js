@@ -26,10 +26,9 @@ form.addEventListener('submit', (e) => {
             errorText.innerHTML = "Non autorisé !";
         }
     }).then(res => {
-        console.log(res)
         if (res.token) {
             localStorage.setItem("token", res.token);
-            document.location.href="./homepage_edit.html"; 
+            document.location.href="./index.html";
         }
     })    
 })

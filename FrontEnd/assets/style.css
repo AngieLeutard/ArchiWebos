@@ -408,7 +408,7 @@ footer li {
 }
 
 .edit {
-	display: flex;
+	display: none;
 	align-items: center;
 	justify-content: center;
 	position: relative;
@@ -443,17 +443,19 @@ footer li {
 	margin-right: 8px;
 }
 
-.modification_text {
+.edit_link {
 	text-decoration: none;
 	font-size: 14px;
 	color: black;
 }
 
-.modification_picture {
+.edit_picture {
+	display: none;
 	margin-top: 16px;
 }
 
-.modification_article {
+.edit_article {
+	display: none;
 	margin-bottom: 19px;
 }
 
@@ -463,6 +465,10 @@ footer li {
 	align-items: center;
 	justify-content: center;
 	gap: 31px;
+}
+
+.edit_title {
+	display: none;
 }
 
 /* ** modal  */
@@ -592,6 +598,19 @@ footer li {
 
 /* modal2 */
 
+.arrow_button {
+	cursor: pointer;
+	position: absolute;
+	top: 32px;
+	left: 36px;
+	border: none;
+	background-color: transparent;
+}
+
+.fa-arrow-left {
+	font-size: 18px;
+}
+
 .addPicture_container {
 	display: flex;
 	flex-direction: column;
@@ -618,6 +637,7 @@ footer li {
 	background-color: #CBD6DC;
 	font-size: 14px;
 	color: #306685;
+	cursor: pointer;
 }
 
 .addPicture_text {
@@ -659,4 +679,5 @@ footer li {
 	border: none;
 	height: 51px;
 }
+
 

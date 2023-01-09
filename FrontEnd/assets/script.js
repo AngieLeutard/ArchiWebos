@@ -62,3 +62,15 @@ function filterWorks(category){
         }
        }
 };
+
+let editToken = localStorage.getItem('token');
+console.log(editToken)
+
+if (editToken !== null) {
+    document.querySelectorAll('.edit_display').forEach(a => {
+        a.style.display = 'Flex'
+    })
+}
+
+
+

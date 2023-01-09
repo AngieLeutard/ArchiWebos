@@ -9,8 +9,16 @@
 	<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Work+Sans&display=swap" rel="stylesheet">
 	<meta name="description" content="">
 	<link rel="stylesheet" href="./assets/style.css">
+	<script src="https://kit.fontawesome.com/19e0239bc8.js" crossorigin="anonymous"></script>
 </head>
 <body>
+<!-- modif 1 -->
+	<div class="edit edit_display">
+        <i class="fa-regular fa-pen-to-square edit_icon"></i>
+        <a class="edit_text js-modal" href="#modal1">Mode édition</a>
+        <button class="edit_button" type="button">publier les changements</button>
+    </div>
+<!-- modif 1 -->
 <header>
 	<a href="index.html">
 	<h1>Sophie Bluel <span>ARCHITECTE D'INTÉRIEUR</span></h1>
@@ -28,8 +36,20 @@
 	<section id="introduction">
 		<figure>
 			<img src="./assets/images/sophie-bluel.png" alt="">
+			<!-- modif 2-->
+			<div class="edit_picture edit_display">
+                <i class="fa-regular fa-pen-to-square edit_icon2"></i>
+                <a class="edit_link" href="#">modifier</a>
+            </div>
+			<!-- modif 2-->
 		</figure>
 		<article>
+			<!-- modif 3-->
+			<div class="edit_article edit_display">
+                <i class="fa-regular fa-pen-to-square edit_icon2"></i>
+                <a class="edit_link" href="#">modifier</a>
+            </div>
+			<!-- modif 3-->
 			<h2>Designer d'espace</h2>
 			<p class="paragraph1">Je raconte votre histoire, je valorise vos idées. Je vous accompagne de la conception à la livraison finale du chantier.</p>
 			<p class="paragraph2">Chaque projet sera étudié en commun, de façon à mettre en valeur les volumes, les matières et les couleurs dans le respect de l’esprit des lieux et le choix adapté des matériaux. Le suivi du chantier sera assuré dans le souci du détail, le respect du planning et du budget.</p>
@@ -37,7 +57,15 @@
 		</article>
 	</section>
 	<section id="portfolio">
-		<h2 id="portfolioTitle">Mes Projets</h2>
+		<div class="portfolio_edit">
+			<h2 id="portfolioTitle">Mes Projets</h2>
+			<!-- modif 4-->
+			<div class="edit_title edit_display">
+				<i class="fa-regular fa-pen-to-square edit_icon2"></i>
+				<a class="edit_link" href="#">modifier</a>
+			</div>
+			<!-- modif 4-->
+		</div>
 		<div class="filterContainer">
 			<button class="filter" data-category="all">Tous</button>
 		</div>
@@ -58,6 +86,21 @@
 	</section>
 </main>
 
+<!-- modal1 -->
+<aside id="modal1" class="modal" aria-hidden="true" role="dialog" aria-modal="" aria-labelledby="title_modal" style="display:none;">
+    <div class="modal_wrapper js-modal-stop modal1_wrapper">
+        <button class="modal_wrapperButton js-modal-close">
+            <i class="fa-solid fa-xmark modal_cross"></i>
+        </button>
+        <p id="title_modal" class="modal_title">Galerie photo</p>
+        <div class="modal_gallery"></div>
+        <div class="ligne"></div>
+        <a class="modal_button" type="button">Ajouter une photo</a>
+        <a class="modal_delete" href="#">Supprimer la galerie</a>
+    </div>
+</aside>
+<!-- modal1 -->
+
 <footer>
 	<nav>
 		<ul>
@@ -66,5 +109,7 @@
 	</nav>
 </footer>
 <script src="./assets/script.js"></script>
+<script src="./assets/modal.js"></script>
+<script src="./assets/galleryModal.js"></script>
 </body>
 </html>
