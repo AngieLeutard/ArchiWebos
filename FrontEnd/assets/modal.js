@@ -2,6 +2,44 @@ let modal = null
 const focusableSelector = 'button, a, input, textarea'
 let focusables = []
 
+// ***** Gallery Modal ******
+
+let modalGallery = document.querySelector(".modal_gallery");
+
+fetch("http://localhost:5678/api/works")
+    .then(function(res) {
+        if (res.ok) {
+            return res.json();
+        }
+    })
+    .then(function(value) {
+        for(i=0; i<value.length; i++){
+            let modalFigure = document.createElement("figure");
+            modalFigure.classList.add("gallery_card");
+
+            let modalFigureImage = document.createElement("img");
+            let modalImage = value[i].imageUrl;
+            modalFigureImage.src = modalImage;
+            modalFigureImage.classList.add("modal_figureImage");
+
+            let modalFigureText = document.createElement("figcaption");
+            modalFigureText.classList.add("gallery_textEdit");
+            modalFigureText.innerHTML = '<a href="#" class="gallery_textEdit">éditer</a>';
+
+            let modalFigureDeleteIcon = document.createElement("button");
+            modalFigureDeleteIcon.classList.add("modal_deleteButton");
+            modalFigureDeleteIcon.innerHTML = '<i class="fa-solid fa-trash-can"></i>';
+            modalFigureDeleteIcon.addEventListener('click', deleteWork.bind(this, value[i].id))
+
+            modalFigure.appendChild(modalFigureImage);
+            modalFigure.appendChild(modalFigureText);
+            modalFigure.appendChild(modalFigureDeleteIcon);
+            modalGallery.appendChild(modalFigure);
+        }
+    });
+
+// ***** Modal ******
+
 const openModal = function (e) {
     e.preventDefault();
     modal = document.querySelector(e.target.getAttribute('href'));
@@ -61,7 +99,7 @@ window.addEventListener('keydown', function (e) {
     }
 })
 
-// modal 2
+// ***** Modal 2 *****
 
 let modalWrapper = document.querySelector('.modal_wrapper')
 let modalTitle = document.querySelector('.modal_title')
@@ -108,7 +146,7 @@ const openModal2 = function (e) {
 
 newPictureButton.addEventListener('click', (openModal2))
 
-const returnModal1 = function (e) {
+const returnModal1 = function(e) {
     e.preventDefault();
 
     modalTitle.innerHTML = 'Galerie Photo'
@@ -127,3 +165,34 @@ const returnModal1 = function (e) {
 }
 
 buttonArrowModal2.addEventListener('click', (returnModal1))
+
+// **** Suppression des travaux via modal 1 *****
+let deleteToken = localStorage.getItem('token');
+console.log(deleteToken)
+
+const deleteWork = function(id) {
+    console.log(id)
+    fetch("http://localhost:5678/api/works/" + id, {
+        method: 'DELETE',
+        headers: {
+            'Content-Type' : 'application/json',
+            'Authorization' : `Bearer ${deleteToken}`
+        },
+    }).then(res => {
+        console.log(res)
+        if (res.ok) {
+            return res.json()
+            // supprimé elemt avec remove child peut être
+        } else if (res.status === 401) {
+        
+        } else if (res.status === 500) {
+            
+        }
+    }).then(data => 
+        console.log(data) 
+    )
+}
+
+// ***** Ajout des travaux via modal 2 *****
+
+

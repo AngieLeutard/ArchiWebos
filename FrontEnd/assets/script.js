@@ -28,6 +28,8 @@ fetch("http://localhost:5678/api/works")
         }
     });
 
+// **** Filtres
+
 let filters = document.querySelector(".filterContainer");
 
 fetch("http://localhost:5678/api/categories")
@@ -63,8 +65,9 @@ function filterWorks(category){
        }
 };
 
+// **** Homepage_edit
+
 let editToken = localStorage.getItem('token');
-console.log(editToken)
 
 if (editToken !== null) {
     document.querySelectorAll('.edit_display').forEach(a => {
