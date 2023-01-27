@@ -4,64 +4,70 @@ let focusables = []
 
 // ***** Gallery Modal ******
 
-let modalGallery = document.querySelector(".modal_gallery");
+let modalGallery = document.querySelector(".modal_gallery")
 
-fetch("http://localhost:5678/api/works")
+const fetchAllWorks = function() {
+    fetch("http://localhost:5678/api/works")
     .then(function(res) {
         if (res.ok) {
-            return res.json();
+            return res.json()
         }
     })
     .then(function(value) {
+        modalGallery.innerHTML = ''
         for(i=0; i<value.length; i++){
-            let modalFigure = document.createElement("figure");
-            modalFigure.classList.add("gallery_card");
+            let modalFigure = document.createElement("figure")
+            modalFigure.classList.add("gallery_card")
+            modalFigure.setAttribute("id", "modalFigure")
 
-            let modalFigureImage = document.createElement("img");
-            let modalImage = value[i].imageUrl;
-            modalFigureImage.src = modalImage;
-            modalFigureImage.classList.add("modal_figureImage");
+            let modalFigureImage = document.createElement("img")
+            let modalImage = value[i].imageUrl
+            modalFigureImage.src = modalImage
+            modalFigureImage.classList.add("modal_figureImage")
 
-            let modalFigureText = document.createElement("figcaption");
-            modalFigureText.classList.add("gallery_textEdit");
-            modalFigureText.innerHTML = '<a href="#" class="gallery_textEdit">éditer</a>';
+            let modalFigureText = document.createElement("figcaption")
+            modalFigureText.classList.add("gallery_textEdit")
+            modalFigureText.innerHTML = '<a href="#" class="gallery_textEdit">éditer</a>'
 
-            let modalFigureDeleteIcon = document.createElement("button");
-            modalFigureDeleteIcon.classList.add("modal_deleteButton");
-            modalFigureDeleteIcon.innerHTML = '<i class="fa-solid fa-trash-can"></i>';
+            let modalFigureDeleteIcon = document.createElement("button")
+            modalFigureDeleteIcon.classList.add("modal_deleteButton")
+            modalFigureDeleteIcon.innerHTML = '<i class="fa-solid fa-trash-can"></i>'
             modalFigureDeleteIcon.addEventListener('click', deleteWork.bind(this, value[i].id))
 
-            modalFigure.appendChild(modalFigureImage);
-            modalFigure.appendChild(modalFigureText);
-            modalFigure.appendChild(modalFigureDeleteIcon);
-            modalGallery.appendChild(modalFigure);
+            modalFigure.appendChild(modalFigureImage)
+            modalFigure.appendChild(modalFigureText)
+            modalFigure.appendChild(modalFigureDeleteIcon)
+            modalGallery.appendChild(modalFigure)
         }
-    });
+    })
+} 
+
+fetchAllWorks()
 
 // ***** Modal ******
 
 const openModal = function (e) {
-    e.preventDefault();
-    modal = document.querySelector(e.target.getAttribute('href'));
-    focusables = Array.from(modal.querySelectorAll(focusableSelector));
+    e.preventDefault()
+    modal = document.querySelector(e.target.getAttribute('href'))
+    focusables = Array.from(modal.querySelectorAll(focusableSelector))
     focusables[0].focus()
-    modal.style.display = null;
-    modal.removeAttribute('aria-hidden');
-    modal.setAttribute('aria-modal', 'true');
-    modal.addEventListener('click', closeModal);
-    modal.querySelector('.js-modal-close').addEventListener('click', closeModal);
-    modal.querySelector('.js-modal-stop').addEventListener('click', stopPropagation);
+    modal.style.display = null
+    modal.removeAttribute('aria-hidden')
+    modal.setAttribute('aria-modal', 'true')
+    modal.addEventListener('click', closeModal)
+    modal.querySelector('.js-modal-close').addEventListener('click', closeModal)
+    modal.querySelector('.js-modal-stop').addEventListener('click', stopPropagation)
 }
 
 const closeModal = function (e) {
     if (modal === null) return
-    e.preventDefault();
-    modal.style.display = "none";
-    modal.setAttribute('aria-hidden', 'true');
-    modal.removeAttribute('aria-modal');
-    modal.removeEventListener('click', closeModal);
-    modal.querySelector('.js-modal-close').removeEventListener('click', closeModal);
-    modal.querySelector('.js-modal-stop').removeEventListener('click', stopPropagation);
+    e.preventDefault()
+    modal.style.display = "none"
+    modal.setAttribute('aria-hidden', 'true')
+    modal.removeAttribute('aria-modal')
+    modal.removeEventListener('click', closeModal)
+    modal.querySelector('.js-modal-close').removeEventListener('click', closeModal)
+    modal.querySelector('.js-modal-stop').removeEventListener('click', stopPropagation)
     modal = null; 
 }
 
@@ -108,10 +114,8 @@ let newPictureButton = document.querySelector('.modal_button')
 let galleryDeleteButton = document.querySelector('.modal_delete')
 
 let buttonArrowModal2 = document.createElement("button")
-let addPictureContainer = document.createElement("div")
 let modalForm = document.createElement("form")
 let modalLigne = document.createElement("div")
-let modal2Button = document.createElement("button")
 
 const openModal2 = function (e) {
     e.preventDefault();
@@ -126,36 +130,27 @@ const openModal2 = function (e) {
     buttonArrowModal2.innerHTML = '<i class="fa-solid fa-arrow-left"></i>'
     buttonArrowModal2.classList.add("arrow_button")
 
-    addPictureContainer.innerHTML = '<i class="fa-regular fa-image addPicture_icon"></i><button class="addPicture_button" type="button">+ Ajouter photo</button><p class="addPicture_text">jpg, png : 4mo max</p>'
-    addPictureContainer.classList.add("addPicture_container")
-
-    modalForm.innerHTML = '<label class="modal2_formLabel">Titre</label><input class="modal2_formInpute" type="text" name="title"><label class="modal2_formLabel">Catégorie</label><select class="modal2_formInpute" type="select"><option value="choose"></option><option value="objets">Objets</option><option value="appartements">Appartements</option><option value="hotels-restaurants">Hôtels & restaurants</option></select>'
+    modalForm.innerHTML = '<div class="addPicture_container"><i class="fa-regular fa-image addPicture_icon"></i><label for="uploadPictureButton" class="addPicture_button">+ Ajouter photo</label><input type="file" class="upload" id="uploadPictureButton" name="image" accept=".png, .jpg, .jpeg" style="opacity: 0;"/><p class="addPicture_text">jpg, png : 4mo max</p></div><label class="modal2_formLabel">Titre</label><input class="modal2_formInpute" id="formTitle" type="text" name="title" required><label class="modal2_formLabel">Catégorie</label><select id="formCategory" class="modal2_formInpute" name="category" type="select" required><option value="" selected disabled></option><option value="1">Objets</option><option value="2">Appartements</option><option value="3">Hôtels & restaurants</option></select><input class="validate_button" type="submit" value="Valider" />'
     modalForm.classList.add('modal2_form')
+    modalForm.setAttribute("method", "post")
+    modalForm.setAttribute("enctype", "multipart/form-data")
 
-    modalLigne.classList.add('ligne')
-
-    modal2Button.innerHTML = 'Valider'
-    modal2Button.classList.add('validate_button')
+    modalLigne.classList.add('ligne2')
 
     modalWrapper.appendChild(buttonArrowModal2)
-    modalWrapper.appendChild(addPictureContainer)
     modalWrapper.appendChild(modalForm)
     modalWrapper.appendChild(modalLigne)
-    modalWrapper.appendChild(modal2Button)
-}
 
-newPictureButton.addEventListener('click', (openModal2))
+    // ***** Return modal with arrow button *****
 
 const returnModal1 = function(e) {
-    e.preventDefault();
+    e.preventDefault()
 
     modalTitle.innerHTML = 'Galerie Photo'
 
     modalWrapper.removeChild(buttonArrowModal2)
-    modalWrapper.removeChild(addPictureContainer)
     modalWrapper.removeChild(modalForm)
     modalWrapper.removeChild(modalLigne)
-    modalWrapper.removeChild(modal2Button)
 
     modalWrapper.appendChild(modalTitle)
     modalWrapper.appendChild(modalGallery)
@@ -166,33 +161,99 @@ const returnModal1 = function(e) {
 
 buttonArrowModal2.addEventListener('click', (returnModal1))
 
+    // ***** Ajout preview picture *****
+
+    let addPictureContainer = document.querySelector('.addPicture_container')
+    let addPictureIcon = document.querySelector('.addPicture_icon')
+    let addPictureButton = document.querySelector('.addPicture_button')
+    let addPictureText = document.querySelector('.addPicture_text')
+    let addPictureInput = document.querySelector('.upload')
+
+    addPictureInput.addEventListener('change', preview)
+
+    function preview() {
+        addPictureContainer.removeChild(addPictureIcon)
+        addPictureContainer.removeChild(addPictureButton)
+        addPictureContainer.removeChild(addPictureText)
+
+        let picturePreviewFile = addPictureInput.files
+
+        if(validFileType(picturePreviewFile[0])) {
+            let picturePreview = document.createElement('img')
+            picturePreview.classList.add('previewPicture')
+            picturePreview.src = window.URL.createObjectURL(picturePreviewFile[0])
+
+            addPictureContainer.appendChild(picturePreview)
+        }
+    }
+
+    var fileTypes = [
+        'image/jpeg',
+        'image/png'
+      ]
+      
+    function validFileType(file) {
+    for(var i = 0; i < fileTypes.length; i++) {
+        if(file.type === fileTypes[i]) {
+        return true;
+        }
+    }
+    
+    return false
+    }
+
+    // **** Ajout nouveaux travaux dans la galerie ****
+    modalForm.addEventListener('submit', (e) => {
+        e.preventDefault()
+        const form = new FormData(modalForm)
+
+        let token = localStorage.getItem('token')
+
+        fetch("http://localhost:5678/api/works", {
+            method: 'POST',
+            headers: {
+            'Authorization' : `Bearer ${token}`
+            },
+            body: form
+        }).then(res => {
+            if (res.ok) {
+                console.log("ok")
+                return res.json()
+            } else if (res.status === 400) {
+                console.log("erreur 400")
+            } else if (res.status === 401) {
+                console.log("erreur 401")
+            } else if (res.status === 500) {
+                console.log("erreur 500")
+            }
+        })
+    })
+}
+
+newPictureButton.addEventListener('click', (openModal2))
+
 // **** Suppression des travaux via modal 1 *****
-let deleteToken = localStorage.getItem('token');
-console.log(deleteToken)
+let token = localStorage.getItem('token')
 
 const deleteWork = function(id) {
-    console.log(id)
     fetch("http://localhost:5678/api/works/" + id, {
         method: 'DELETE',
         headers: {
             'Content-Type' : 'application/json',
-            'Authorization' : `Bearer ${deleteToken}`
+            'Authorization' : `Bearer ${token}`
         },
     }).then(res => {
         console.log(res)
-        if (res.ok) {
-            return res.json()
-            // supprimé elemt avec remove child peut être
+        if (res.status === 204) {
+            return 'deleted'
         } else if (res.status === 401) {
         
         } else if (res.status === 500) {
             
         }
-    }).then(data => 
-        console.log(data) 
-    )
+    }).then(data => {
+        if(data === "deleted") {
+            fetchAllWorks()
+        }
+    })
 }
-
-// ***** Ajout des travaux via modal 2 *****
-
-

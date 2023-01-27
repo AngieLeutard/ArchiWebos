@@ -1,6 +1,6 @@
-const form = document.getElementById("logIn");
+const form = document.getElementById("logIn")
 form.addEventListener('submit', (e) => {
-    e.preventDefault();
+    e.preventDefault()
     const email = document.getElementById('email').value
     const password = document.getElementById('pass').value
 
@@ -19,16 +19,16 @@ form.addEventListener('submit', (e) => {
         if (res.ok) {
             return res.json()
         } else if (res.status === 404) {
-            let errorText = document.querySelector(".errorMessage");
-            errorText.innerHTML = "Utilisateur inconnu !";
+            let errorText = document.querySelector(".errorMessage")
+            errorText.innerHTML = "Utilisateur inconnu !"
         } else if (res.status === 401) {
-            let errorText = document.querySelector(".errorMessage");
-            errorText.innerHTML = "Non autorisé !";
+            let errorText = document.querySelector(".errorMessage")
+            errorText.innerHTML = "Non autorisé !"
         }
     }).then(res => {
         if (res.token) {
-            localStorage.setItem("token", res.token);
-            document.location.href="./index.html";
+            localStorage.setItem("token", res.token)
+            document.location.href="./index.html"
         }
     })    
 })

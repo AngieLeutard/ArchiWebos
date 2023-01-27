@@ -7,6 +7,7 @@ exports.findAll = async (req, res) =>  {
 }
 
 exports.create = async (req, res) => {
+	console.log(req.body)
 	const host = req.get('host');
 	const title = req.body.title;
 	const categoryId = req.body.category;
@@ -20,7 +21,8 @@ exports.create = async (req, res) => {
 			userId
 		})
 		return res.status(201).json(work)
-	}catch (err) {
+	}catch (err) { 
+		console.log(err)
 		return res.status(500).json({ error: new Error('Something went wrong') })
 	}
 }

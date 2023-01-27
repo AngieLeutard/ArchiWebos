@@ -30,7 +30,7 @@ fetch("http://localhost:5678/api/works")
 
 // **** Filtres
 
-let filters = document.querySelector(".filterContainer");
+let filters = document.querySelector(".filterContainer")
 
 fetch("http://localhost:5678/api/categories")
     .then(function(res){
@@ -41,11 +41,11 @@ fetch("http://localhost:5678/api/categories")
     .then(function(data){
 
         for(i=0; i<data.length; i++){
-            let filterButton = document.createElement("button");
-            filterButton.classList.add("filter");
-            filterButton.innerHTML = data[i].name;
-            filterButton.dataset.category = "category" + data[i].id;
-            filters.appendChild(filterButton);
+            let filterButton = document.createElement("button")
+            filterButton.classList.add("filter")
+            filterButton.innerHTML = data[i].name
+            filterButton.dataset.category = "category" + data[i].id
+            filters.appendChild(filterButton)
         }
 
         for(const button of filters.children){
@@ -55,7 +55,7 @@ fetch("http://localhost:5678/api/categories")
     });
 
 function filterWorks(category){
-    console.log(category);
+    console.log(category)
     for(const child of gallery.children){
         if(child.classList.contains(category)){
             child.style.display = "Block"
@@ -67,7 +67,7 @@ function filterWorks(category){
 
 // **** Homepage_edit
 
-let editToken = localStorage.getItem('token');
+let editToken = localStorage.getItem('token')
 
 if (editToken !== null) {
     document.querySelectorAll('.edit_display').forEach(a => {
