@@ -57,11 +57,11 @@ const openModal = function (e) {
     modal.addEventListener('click', closeModal)
     modal.querySelector('.js-modal-close').addEventListener('click', closeModal)
     modal.querySelector('.js-modal-stop').addEventListener('click', stopPropagation)
+    fetchAllWorks()
 }
 
 const closeModal = function (e) {
     if (modal === null) return
-    e.preventDefault()
     modal.style.display = "none"
     modal.setAttribute('aria-hidden', 'true')
     modal.removeAttribute('aria-modal')
@@ -69,6 +69,7 @@ const closeModal = function (e) {
     modal.querySelector('.js-modal-close').removeEventListener('click', closeModal)
     modal.querySelector('.js-modal-stop').removeEventListener('click', stopPropagation)
     modal = null; 
+    fetchGallery()
 }
 
 const stopPropagation = function (e) {
@@ -141,26 +142,6 @@ const openModal2 = function (e) {
     modalWrapper.appendChild(modalForm)
     modalWrapper.appendChild(modalLigne)
 
-    // ***** Return modal with arrow button *****
-
-const returnModal1 = function(e) {
-    e.preventDefault()
-
-    modalTitle.innerHTML = 'Galerie Photo'
-
-    modalWrapper.removeChild(buttonArrowModal2)
-    modalWrapper.removeChild(modalForm)
-    modalWrapper.removeChild(modalLigne)
-
-    modalWrapper.appendChild(modalTitle)
-    modalWrapper.appendChild(modalGallery)
-    modalWrapper.appendChild(modalLigne1)
-    modalWrapper.appendChild(newPictureButton)
-    modalWrapper.appendChild(galleryDeleteButton)
-}
-
-buttonArrowModal2.addEventListener('click', (returnModal1))
-
     // ***** Ajout preview picture *****
 
     let addPictureContainer = document.querySelector('.addPicture_container')
@@ -216,9 +197,10 @@ buttonArrowModal2.addEventListener('click', (returnModal1))
             },
             body: form
         }).then(res => {
+            console.log(res)
             if (res.ok) {
                 console.log("ok")
-                return res.json()
+                return 'created'
             } else if (res.status === 400) {
                 console.log("erreur 400")
             } else if (res.status === 401) {
@@ -226,11 +208,35 @@ buttonArrowModal2.addEventListener('click', (returnModal1))
             } else if (res.status === 500) {
                 console.log("erreur 500")
             }
+        }).then(function(data){
+            if(data === 'created'){
+                returnModal1()
+                closeModal()
+                modalForm.reset()
+            }
         })
     })
 }
 
 newPictureButton.addEventListener('click', (openModal2))
+
+    // ***** Return modal with arrow button *****
+
+    const returnModal1 = function(e) {        
+        modalTitle.innerHTML = 'Galerie Photo'
+    
+        modalWrapper.removeChild(buttonArrowModal2)
+        modalWrapper.removeChild(modalForm)
+        modalWrapper.removeChild(modalLigne)
+    
+        modalWrapper.appendChild(modalTitle)
+        modalWrapper.appendChild(modalGallery)
+        modalWrapper.appendChild(modalLigne1)
+        modalWrapper.appendChild(newPictureButton)
+        modalWrapper.appendChild(galleryDeleteButton)
+    }
+    
+    buttonArrowModal2.addEventListener('click', (returnModal1))
 
 // **** Suppression des travaux via modal 1 *****
 let token = localStorage.getItem('token')

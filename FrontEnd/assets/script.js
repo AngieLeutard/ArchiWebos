@@ -1,13 +1,15 @@
 let gallery = document.querySelector(".gallery");
 gallery.classList.add("gallery");
 
-fetch("http://localhost:5678/api/works")
+const fetchGallery = function() {
+    fetch("http://localhost:5678/api/works")
     .then(function(res) {
         if (res.ok) {
             return res.json();
         }
     })
     .then(function(value) {
+        gallery.innerHTML = ''
         for(i=0; i<value.length; i++){
             let galleryFigure = document.createElement("figure");
 
@@ -27,6 +29,9 @@ fetch("http://localhost:5678/api/works")
             gallery.appendChild(galleryFigure);
         }
     });
+}
+
+window.onload = fetchGallery()
 
 // **** Filtres
 
