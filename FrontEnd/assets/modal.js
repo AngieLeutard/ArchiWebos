@@ -131,7 +131,7 @@ const openModal2 = function (e) {
     buttonArrowModal2.innerHTML = '<i class="fa-solid fa-arrow-left"></i>'
     buttonArrowModal2.classList.add("arrow_button")
 
-    modalForm.innerHTML = '<div class="addPicture_container"><i class="fa-regular fa-image addPicture_icon"></i><label for="uploadPictureButton" class="addPicture_button">+ Ajouter photo</label><input type="file" class="upload" id="uploadPictureButton" name="image" accept=".png, .jpg, .jpeg" style="opacity: 0;"/><p class="addPicture_text">jpg, png : 4mo max</p></div><label class="modal2_formLabel">Titre</label><input class="modal2_formInpute" id="formTitle" type="text" name="title" required><label class="modal2_formLabel">Catégorie</label><select id="formCategory" class="modal2_formInpute" name="category" type="select" required><option value="" selected disabled></option><option value="1">Objets</option><option value="2">Appartements</option><option value="3">Hôtels & restaurants</option></select><input class="validate_button" type="submit" value="Valider" />'
+    modalForm.innerHTML = '<div class="addPicture_container"><i class="fa-regular fa-image addPicture_icon"></i><label for="uploadPictureButton" class="addPicture_button">+ Ajouter photo</label><input type="file" class="upload" id="uploadPictureButton" name="image" accept=".png, .jpg, .jpeg" style="opacity: 0;"/><p class="addPicture_text">jpg, png : 4mo max</p></div><label class="modal2_formLabel">Titre</label><input class="modal2_formInpute" id="formTitle" type="text" name="title" required><label class="modal2_formLabel">Catégorie</label><select id="formCategory" class="modal2_formInpute" name="category" type="select" required><option value="" selected disabled></option><option value="1">Objets</option><option value="2">Appartements</option><option value="3">Hôtels & restaurants</option></select><div class="errorMessage"></div><input class="validate_button" type="submit" value="Valider" />'
     modalForm.classList.add('modal2_form')
     modalForm.setAttribute("method", "post")
     modalForm.setAttribute("enctype", "multipart/form-data")
@@ -182,61 +182,62 @@ const openModal2 = function (e) {
     
     return false
     }
-
-    // **** Ajout nouveaux travaux dans la galerie ****
-    modalForm.addEventListener('submit', (e) => {
-        e.preventDefault()
-        const form = new FormData(modalForm)
-
-        let token = localStorage.getItem('token')
-
-        fetch("http://localhost:5678/api/works", {
-            method: 'POST',
-            headers: {
-            'Authorization' : `Bearer ${token}`
-            },
-            body: form
-        }).then(res => {
-            console.log(res)
-            if (res.ok) {
-                console.log("ok")
-                return 'created'
-            } else if (res.status === 400) {
-                console.log("erreur 400")
-            } else if (res.status === 401) {
-                console.log("erreur 401")
-            } else if (res.status === 500) {
-                console.log("erreur 500")
-            }
-        }).then(function(data){
-            if(data === 'created'){
-                returnModal1()
-                closeModal()
-                modalForm.reset()
-            }
-        })
-    })
 }
 
 newPictureButton.addEventListener('click', (openModal2))
 
-    // ***** Return modal with arrow button *****
+// ***** Return modal with arrow button *****
 
-    const returnModal1 = function(e) {        
-        modalTitle.innerHTML = 'Galerie Photo'
-    
-        modalWrapper.removeChild(buttonArrowModal2)
-        modalWrapper.removeChild(modalForm)
-        modalWrapper.removeChild(modalLigne)
-    
-        modalWrapper.appendChild(modalTitle)
-        modalWrapper.appendChild(modalGallery)
-        modalWrapper.appendChild(modalLigne1)
-        modalWrapper.appendChild(newPictureButton)
-        modalWrapper.appendChild(galleryDeleteButton)
-    }
-    
-    buttonArrowModal2.addEventListener('click', (returnModal1))
+const returnModal1 = function(e) {        
+    modalTitle.innerHTML = 'Galerie Photo'
+
+    modalWrapper.removeChild(buttonArrowModal2)
+    modalWrapper.removeChild(modalForm)
+    modalWrapper.removeChild(modalLigne)
+
+    modalWrapper.appendChild(modalTitle)
+    modalWrapper.appendChild(modalGallery)
+    modalWrapper.appendChild(modalLigne1)
+    modalWrapper.appendChild(newPictureButton)
+    modalWrapper.appendChild(galleryDeleteButton)
+}
+
+buttonArrowModal2.addEventListener('click', (returnModal1))
+
+ // **** Ajout nouveaux travaux dans la galerie ****
+ modalForm.addEventListener('submit', (e) => {
+    e.preventDefault()
+    const form = new FormData(modalForm)
+
+    let token = localStorage.getItem('token')
+
+    fetch("http://localhost:5678/api/works", {
+        method: 'POST',
+        headers: {
+        'Authorization' : `Bearer ${token}`
+        },
+        body: form
+    }).then(res => {
+        if (res.ok) {
+            return 'created'
+        } else if (res.status === 400) {
+            let errorText = document.querySelector(".errorMessage")
+            errorText.innerHTML = "Action impossible."
+        } else if (res.status === 401) {
+            let errorText = document.querySelector(".errorMessage")
+            errorText.innerHTML = "Action non autorisée !"
+        } else if (res.status === 500) {
+            let errorText = document.querySelector(".errorMessage")
+            errorText.innerHTML = "Veuillez ajouter une photo."
+        }
+    }).then(function(data){
+        if(data === 'created'){
+            returnModal1()
+            closeModal()
+            modalForm.reset()
+        }
+    })
+})
 
 // **** Suppression des travaux via modal 1 *****
 let token = localStorage.getItem('token')
@@ -249,7 +250,6 @@ const deleteWork = function(id) {
             'Authorization' : `Bearer ${token}`
         },
     }).then(res => {
-        console.log(res)
         if (res.status === 204) {
             return 'deleted'
         } else if (res.status === 401) {
