@@ -78,6 +78,11 @@ if (editToken !== null) {
     document.querySelectorAll('.edit_display').forEach(a => {
         a.style.display = 'Flex'
     })
+    let filtres = document.querySelector(".filterContainer")
+    filtres.style.display = 'none'
+
+    let loginLink = document.querySelector('.loginLink')
+    loginLink.innerHTML = 'logout'
 }
 
 
