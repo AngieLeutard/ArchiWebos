@@ -26,8 +26,8 @@ form.addEventListener('submit', (e) => {
             errorText.innerHTML = "Non autorisé !"
         }
     }).then(res => {
-        if (res.token) {
-            localStorage.setItem("token", res.token)
+        if (res.email) {
+            localStorage.setItem("email", res.email)
             document.location.href="./index.html"
         }
     })    
